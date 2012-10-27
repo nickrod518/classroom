@@ -4,33 +4,26 @@
   <script type="text/javascript" src="draw.js"></script>
 </head>
 <body>
-  <h1>Class</h1>
+  <h1>Classroom</h1>
 
   Rows: <span id="rowVal"></span>
   <input id="rows" type="range" min="1" max="20" value="4"/>
-
   Cols: <span id="colVal"></span>
   <input id="cols" type="range" min="1" max="20" value="8"/>
-  
   <br />
   
   Chair ID:
   <input id="chairID" value="123" size="10">
-  
   Chair Location (<span id="chairX">1</span>, <span id="chairY">1</span>)
-  
   <br />
 
   <input id="drawClass" type="button" value="Draw Class"/>
-  
   <input id="drawChair" type="button" value="Draw Chair"/>
-
   <input id="clear" type="button" value="clear"/>
-
   <input id="save" type="button" value="save"/>
-  
   <br />
 
-  <canvas id="canvas" width=500 height=400 style="box-shadow:0 0 1px #000;">If you can read this, then your browser does not support HTML5 Canvas or JavaScript. :(</canvas>
+  <canvas id="canvas" width=500 height=400 style="box-shadow:0 0 1px #000; position: absolute; z-index: 0;"></canvas>
+  <canvas id="overlay" width=500 height=400 style="position: absolute; z-index: 1;">If you can read this, then your browser does not support JavaScript. :(</canvas>
 </body>
 </html>

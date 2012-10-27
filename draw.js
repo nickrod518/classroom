@@ -1,6 +1,7 @@
 window.onload = function() {
   updateInfo();
 
+  drawClass();
   var drawClassBtn = document.getElementById("drawClass");
   drawClassBtn.onclick = drawClass;
 
@@ -13,7 +14,7 @@ window.onload = function() {
   var saveBtn = document.getElementById("save");
   saveBtn.onclick = save;
 
-  canvas.onclick = selectChair;
+  overlay.onclick = selectChair;
 }
 
 var chairX = 1;
@@ -22,6 +23,11 @@ var chairY = 1;
 function getCtx() {
   var canvas  = document.getElementById("canvas");
   return canvas.getContext("2d");
+}
+
+function getCtxOverlay() {
+  var overlay  = document.getElementById("overlay");
+  return overlay.getContext("2d");
 }
 
 function getWidth() {
@@ -46,6 +52,7 @@ function save() {
 
 function clear() {
   getCtx().clearRect(0, 0, getWidth(), getHeight());
+  getCtxOverlay().clearRect(0, 0, getWidth(), getHeight());
 }
 
 function updateInfo() {
@@ -56,8 +63,7 @@ function updateInfo() {
 
 function drawClass() {
   clear();
-  
-  getCtx().strokeStyle = 'black';
+  getCtx().strokeStyle = "black";
   // Draw rows
   for (i = 0; i <= getRows(); ++i) {
     getCtx().beginPath();
@@ -80,9 +86,9 @@ function drawChair() {
   var startX = (chairX - 1)/getCols()*getWidth();
   var startY = (chairY - 1)/getRows()*getHeight();
   
-  getCtx().fillStyle = 'gray';
+  getCtx().fillStyle = "gray";
   getCtx().fillRect(startX, startY, getWidth()/getCols(), getChairHeight());
-  getCtx().strokeStyle = 'white';
+  getCtx().strokeStyle = "white";
   getCtx().strokeText(chairID, startX, chairY/getRows()*getHeight());
 }
 
@@ -92,6 +98,19 @@ function getChairWidth() {
 
 function getChairHeight() {
   return getHeight()/getRows();
+}
+
+function highlight() {
+  getCtxOverlay().clearRect(0, 0, getWidth(), getHeight());
+  
+  var startX = (chairX - 1)/getCols()*getWidth();
+  var startY = (chairY - 1)/getRows()*getHeight();
+  
+  getCtxOverlay().beginPath();
+  getCtxOverlay().strokeStyle = "orange";
+  getCtxOverlay().lineWidth = 3;
+  getCtxOverlay().rect(startX, startY, getWidth()/getCols(), getChairHeight());
+  getCtxOverlay().stroke();
 }
 
 function selectChair(mouseEvent) {  
@@ -104,4 +123,6 @@ function selectChair(mouseEvent) {
   chairY = yPos;
   document.getElementById("chairX").innerHTML = chairX;
   document.getElementById("chairY").innerHTML = chairY;
+  
+  highlight();
 }
