@@ -16,6 +16,9 @@ window.onload = function() {
   canvas.onclick = selectChair;
 }
 
+var chairX = 1;
+var chairY = 1;
+
 function getCtx() {
   var canvas  = document.getElementById("canvas");
   return canvas.getContext("2d");
@@ -73,16 +76,14 @@ function drawClass() {
 }
 
 function drawChair() {
-  var chairX = document.getElementById("chairX").value - 1;
-  var chairY = document.getElementById("chairY").value - 1;
   var chairID = document.getElementById("chairID").value;
-  var startX = chairX/getCols()*getWidth();
-  var startY = chairY/getRows()*getHeight();
+  var startX = (chairX - 1)/getCols()*getWidth();
+  var startY = (chairY - 1)/getRows()*getHeight();
   
   getCtx().fillStyle = 'gray';
-  getCtx().fillRect(startX, startY, getWidth()/getCols(), getHeight()/getRows());
+  getCtx().fillRect(startX, startY, getWidth()/getCols(), getChairHeight());
   getCtx().strokeStyle = 'white';
-  getCtx().strokeText(chairID, startX, (chairY+1)/getRows()*getHeight());
+  getCtx().strokeText(chairID, startX, chairY/getRows()*getHeight());
 }
 
 function getChairWidth() {
@@ -93,15 +94,14 @@ function getChairHeight() {
   return getHeight()/getRows();
 }
 
-function selectChair(mouseEvent) {
-  var chairX = document.getElementById("chairX");
-  var chairY = document.getElementById("chairY");
-  
+function selectChair(mouseEvent) {  
   var xPos = mouseEvent.pageX-canvas.offsetLeft;
   xPos = Math.floor(xPos/getChairWidth()) + 1;
   var yPos = mouseEvent.pageY-canvas.offsetTop;
   yPos = Math.floor(yPos/getChairHeight()) + 1;
   
-  chairX.value = xPos;
-  chairY.value = yPos;
+  chairX = xPos;
+  chairY = yPos;
+  document.getElementById("chairX").innerHTML = chairX;
+  document.getElementById("chairY").innerHTML = chairY;
 }
