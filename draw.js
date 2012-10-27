@@ -18,8 +18,7 @@ window.onload = function() {
 
 function getCtx() {
   var canvas  = document.getElementById("canvas");
-  var ctx = canvas.getContext("2d");
-  return ctx;
+  return canvas.getContext("2d");
 }
 
 function getWidth() {
@@ -31,13 +30,11 @@ function getHeight() {
 }
 
 function getRows() {
-  var rows = document.getElementById("rows").value;
-  return rows;
+  return document.getElementById("rows").value;
 }
 
 function getCols() {
-  var cols = document.getElementById("cols").value;
-  return cols;
+  return document.getElementById("cols").value;
 }
 
 function save() {
@@ -88,15 +85,22 @@ function drawChair() {
   getCtx().strokeText(chairID, startX, (chairY+1)/getRows()*getHeight());
 }
 
+function getChairWidth() {
+  return getWidth()/getCols();
+}
+
+function getChairHeight() {
+  return getHeight()/getRows();
+}
+
 function selectChair(mouseEvent) {
-  var xPos = mouseEvent.pageX-canvas.offsetLeft;
-  var yPos = mouseEvent.pageY-canvas.offsetTop;
   var chairX = document.getElementById("chairX");
   var chairY = document.getElementById("chairY");
   
-  xPos = Math.floor(xPos/(getWidth()/getCols())) + 1;
-  yPos = Math.floor(yPos/(getHeight()/getRows())) + 1;
-  
+  var xPos = mouseEvent.pageX-canvas.offsetLeft;
+  xPos = Math.floor(xPos/getChairWidth()) + 1;
+  var yPos = mouseEvent.pageY-canvas.offsetTop;
+  yPos = Math.floor(yPos/getChairHeight()) + 1;
   
   chairX.value = xPos;
   chairY.value = yPos;
