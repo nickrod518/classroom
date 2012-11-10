@@ -83,12 +83,15 @@ function drawClass() {
 
 function drawChair() {
   var chairID = document.getElementById("chairID").value;
-  var startX = (chairX - 1)/getCols()*getWidth();
-  var startY = (chairY - 1)/getRows()*getHeight();
-  
-  getCtx().fillStyle = "gray";
-  getCtx().fillRect(startX, startY, getWidth()/getCols(), getChairHeight());
-  getCtx().strokeStyle = "white";
+  var startX = (chairX - 1)/getCols()*getWidth() + 1;
+  var startY = (chairY - 1)/getRows()*getHeight() + 1;
+  var color = new Image();
+
+  // Draw picture of chair
+  color.src = "images/" + chairColor.value;
+  getCtx().drawImage(color, startX, startY, getWidth()/getCols()-1, getChairHeight()-1);
+
+  // Draw ID
   getCtx().strokeText(chairID, startX, chairY/getRows()*getHeight());
 }
 
